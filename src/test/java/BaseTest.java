@@ -24,8 +24,10 @@ public class BaseTest {
     @BeforeMethod
     public void launchBrowser(){
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
+        options.addArguments("--disable-notifications","--remote-allow-origins=*", "--incognito","--start-maximized");
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
 
+        driver = new ChromeDriver(options);
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
@@ -35,6 +37,7 @@ public class BaseTest {
     public void closeBrowser(){
         driver.quit();
     }
+
     public void navigateToLoginPage() {
         String url = "https://qa.koel.app/";
         driver.get(url);

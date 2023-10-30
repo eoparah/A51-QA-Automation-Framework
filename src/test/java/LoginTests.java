@@ -11,7 +11,7 @@ public class LoginTests extends BaseTest {
     launchBrowser();
     navigateToLoginPage();
     provideEmail("demo@class.com");
-    providePassword("te$tStudent");
+    providePassword("te$t$tudent");
     clickSubmit();
 
     WebElement avatar = driver.findElement(By.cssSelector("img[class='avatar']"));
