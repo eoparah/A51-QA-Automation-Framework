@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
 
 import java.time.Duration;
 
@@ -22,24 +23,24 @@ public class BaseTest {
     }
 
     @BeforeMethod
-    public void launchBrowser(){
+    @Parameters({"BaseURL"})
+    public void launchBrowser(String BaseURL){
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-notifications","--remote-allow-origins=*", "--incognito","--start-maximized");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
 
         driver = new ChromeDriver(options);
-        driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
+        url = BaseURL;
+
     }
 
     @AfterMethod
     public void closeBrowser(){
         driver.quit();
     }
-
     public void navigateToLoginPage() {
-        String url = "https://qa.koel.app/";
         driver.get(url);
     }
     public void provideEmail(String email){
