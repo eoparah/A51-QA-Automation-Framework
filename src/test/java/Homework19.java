@@ -23,11 +23,11 @@ public class Homework19 extends BaseTest {
         Assert.assertTrue(playListDeleted());
     }
     public void openPlaylist() {
-        WebElement playlist = driver.findElement(By.cssSelector("li[class=playlist]"));
+        WebElement playlist = driver.findElement(By.cssSelector(".playlist:nth-child(3)"));
         playlist.click();
     }
     public void deletePlaylist() {
-        WebElement xPlaylist = driver.findElement(By.cssSelector("button[title=Delete this playlist]"));
+        WebElement xPlaylist = driver.findElement(By.cssSelector(".btn-delete-playlist"));
         xPlaylist.click();
         }
     public boolean playListDeleted(){
