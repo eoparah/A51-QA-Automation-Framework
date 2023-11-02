@@ -8,7 +8,7 @@ public class LoginTests extends BaseTest {
     @Test
     public void loginEmptyEmailPassword() {
 
-    launchBrowser();
+    launchBrowser(url);
     navigateToLoginPage();
     provideEmail("demo@class.com");
     providePassword("te$t$tudent");
@@ -18,6 +18,5 @@ public class LoginTests extends BaseTest {
     Assert.assertEquals(driver.getCurrentUrl(), url);
     driver.quit();
     }
-
 
 }
