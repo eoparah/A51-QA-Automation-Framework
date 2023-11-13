@@ -17,6 +17,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 
 public class BaseTest {
@@ -34,7 +36,7 @@ public class BaseTest {
 
     @BeforeMethod
     @Parameters({"BaseURL"})
-    public void launchBrowser(String BaseURL){
+    public void launchBrowser(String BaseURL) throws MalformedURLException {
 
         //options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         driver = pickBrowser(System.getProperty("browser"));
@@ -47,7 +49,7 @@ public class BaseTest {
         url = BaseURL;
 
     }
-        public static WebDriver pickBrowser(String browser){
+        public static WebDriver pickBrowser(String browser) throws MalformedURLException {
             DesiredCapabilities caps = new DesiredCapabilities();
             String gridURL = "http://10.0.0.206.4444";
 
@@ -74,12 +76,32 @@ public class BaseTest {
                     caps.setCapability("browserName", "chrome");
                     return driver = new RemoteWebDriver(URI.create(gridURL).toURL(), caps);
 
+                case "cloud":
+                    return lambdaTest();
+
                     default:
                     WebDriverManager.chromedriver().setup();
                     ChromeOptions options = new ChromeOptions();
                     options.addArguments("--disable-notifications","--remote-allow-origins=*", "--incognito","--start-maximized");
                     return driver = new ChromeDriver(options);
             }
+        }
+        public WebDriver lambdaTest() {
+            String username = "esther.oparah";
+            String authKey = "jwE0Z2xM7ZJt0cCF7rh66Vt2irsFcOuBJ9Iglr28PKxN6n1znc";
+            String hub = "@hub.lambdatest.com/wd/hub";
+
+            DesiredCapabilities caps = new DesiredCapabilities();
+            caps.setCapability("platform", "Windows 10");
+            caps.setCapability("browserName", "Chrome");
+            caps.setCapability("version", "120.0");
+            caps.setCapability("resolution", "12024x768");
+            caps.setCapability("build", "TestNG with Java");
+            caps.setCapability("name", this.getClass().getName());
+            caps.setCapability("plugin", "java-testNG");
+
+            return new RemoteWebDriver(new URL("https://" +username+ ":" +authKey + hub), caps);
+
         }
 
     @AfterMethod
@@ -105,5 +127,5 @@ public class BaseTest {
         //WebElement submit = driver.findElement(By.cssSelector("button[type='submit']"));
         WebElement submit = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type='submit']")));
         submit.click();
-    }
+     }
 }
