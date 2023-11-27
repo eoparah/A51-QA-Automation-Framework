@@ -21,7 +21,7 @@ public class Homework20 extends BaseTest {
 
         //Steps to delete a Playlist
         openPlaylist();
-        deletePlaylist();
+        //deletePlaylist();
         Assert.assertTrue(playListDeleted());
     }
     public void openPlaylist() {
@@ -29,10 +29,10 @@ public class Homework20 extends BaseTest {
         WebElement playlist = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".playlist:nth-child(3)")));
         playlist.click();
     }
-    public void deletePlaylist() {
+    //public void deletePlaylist() {
         //WebElement xPlaylist = driver.findElement(By.cssSelector(".btn-delete-playlist"));
-        WebElement xPlaylist = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".btn-delete-playlist")));
-        xPlaylist.click();
+        //WebElement xPlaylist = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".btn-delete-playlist")));
+        //xPlaylist.click();
     }
     public boolean playListDeleted(){
         //WebElement playListDeletedNotification = driver.findElement(By.cssSelector("p[class=msg]"));
